@@ -17,9 +17,16 @@ export default function SSR({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container h-full grid grid-cols-3 gap-2">
-        <Link href="/">Check client side rendering</Link>
+      <div className="py-5 w-full flex justify-center items-center">
+        <Link
+          href="/"
+          className="border hover:bg-indigo-400 transition-all duration-500  py-2 px-4 border-indigo-400"
+        >
+          Check client side rendering
+        </Link>
+      </div>
 
+      <main className="container h-full grid grid-cols-3 gap-2">
         {data?.map(
           (
             {
