@@ -1,30 +1,11 @@
 import Head from "next/head";
+import { useState } from "react";
 import { Inter } from "@next/font/google";
-import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
-  const [data, setData] = useState([]);
+export default function SSR({ data }) {
   const [loading, setLoading] = useState(true);
-
-
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const res = await fetch(
-          "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json"
-        );
-        const data = await res.json();
-
-        setData(data.data);
-      };
-
-      fetchData();
-    } catch (error) {
-      console.log("🚀 ~ file: index.js:22 ~ useEffect ~ error", error);
-    }
-  }, []);
 
   return (
     <>
@@ -36,7 +17,7 @@ export default function Home() {
       </Head>
 
       <main className="container h-full grid grid-cols-3 gap-2">
-        {data.map(
+        {data?.map(
           (
             {
               CategoryID,
@@ -102,4 +83,17 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await fetch(
+    "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json"
+  );
+  const data = await res.json();
+
+  return {
+    props: {
+      data: data.data,
+    },
+  };
 }
