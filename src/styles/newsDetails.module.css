@@ -1,0 +1,13 @@
+.content h1 {
+  font-size: 1.3rem !important;
+  font-weight: 600;
+  color: #1a1919;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  font-size: 1rem !important;
+  font-weight: 500;
+  color: #1a1919;
+  padding-bottom: 1rem;
+}

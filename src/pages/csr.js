@@ -47,7 +47,7 @@ export default function CSR() {
         </Link>
       </div>
 
-      <main className="container grid h-full grid-cols-6 gap-2 mx-auto lg:grid-cols-3">
+      <main className="container grid h-full grid-cols-6 gap-3 lg:gap-6 mx-auto lg:grid-cols-3">
         {data.map(
           (
             {
@@ -68,30 +68,33 @@ export default function CSR() {
             index
           ) => (
             <div
-              className="flex items-center justify-center w-full h-full col-span-6 p-8 md:col-span-3 lg:col-span-1"
-              key={index}
+              className="flex items-center justify-center w-full h-full col-span-6 md:col-span-3 lg:col-span-1"
+              key={Slug + "_" + created_at}
             >
-              <div className="flex flex-col items-start justify-start w-full h-full overflow-hidden border rounded-lg shadow-lg dark:border-gray-800">
-                <div className="relative flex items-center justify-center w-full border-b dark:border-gray-800">
+              <div className="flex flex-col items-start justify-start w-full h-full overflow-hidden border rounded-lg shadow-lg">
+                <div className="relative flex items-center justify-center w-full border-b">
                   <Image
                     height={630}
                     width={1200}
                     alt={ContentHeading}
-                    src={`https://source.unsplash.com/1200x630/?forest${index}`}
+                    src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
                     className={`w-full h-auto transition-opacity duration-200 ${
                       loading ? "opacity-0" : "opacity-100"
                     }`}
                     onLoad={() => {
                       setLoading(false);
                     }}
+                    priority
+                    placeholder="blur"
+                    blurDataURL={`https://backoffice.ekhon.tv/media/imgAll/${ImageSmPath}`}
                   />
                   {loading && (
-                    <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse dark:bg-gray-900" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse" />
                   )}
                 </div>
 
                 <div className="flex flex-col flex-1">
-                  <div className="flex-1 w-full p-4 border-b dark:border-gray-800">
+                  <div className="flex-1 w-full p-4 border-b">
                     <h1 className="pb-2 text-xl font-semibold">
                       {ContentHeading}
                     </h1>
