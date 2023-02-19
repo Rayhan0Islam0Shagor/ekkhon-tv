@@ -24,16 +24,171 @@ export default function App({ Component, pageProps }) {
               width: 800,
               height: 600,
               alt: "Og Image Alt",
-              type: "image/jpeg",
+              type: "image/png",
             },
+            {
+              url: "https://ekhon.tv/media/common/favicon2.png",
+              width: 900,
+              height: 800,
+              alt: "Og Image Alt Second",
+              type: "image/png",
+            },
+            { url: "https://ekhon.tv/media/common/favicon2.png" },
+            { url: "https://ekhon.tv/media/common/favicon2.png" },
           ],
           siteName: "https://ekhon.tv/",
         }}
         twitter={{
           handle: "@Ekhon TV :: এখন টিভি",
           site: "https://ekhon.tv/",
-          cardType: "summary_large_image",
+          cardType: "summary",
         }}
+        additionalMetaTags={[
+          {
+            name: "viewport",
+            content: "width=device-width, initial-scale=1.0",
+          },
+          {
+            name: "msvalidate.01",
+            content: "msvalidate.01=0", // Bing
+          },
+          {
+            name: "yandex-verification",
+            content: "yandex-verification=0", // Yandex
+          },
+          {
+            name: "p:domain_verify",
+            content: "p:domain_verify=0", // Pinterest
+          },
+          {
+            name: "alexaVerifyID",
+            content: "alexaVerifyID=0", // Alexa
+          },
+          {
+            name: "norton-safeweb-site-verification",
+            content: "norton-safeweb-site-verification=0", // Norton
+          },
+          {
+            name: "apple-itunes-app",
+            content: "app-id=0", // Apple
+          },
+          {
+            name: "google-play-app",
+            content: "app-id=0", // Google Play
+          },
+          {
+            name: "google-site-verification",
+            content: "google-site-verification=0", // Google
+          },
+          {
+            name: "facebook-domain-verification",
+            content: "facebook-domain-verification=0", // Facebook
+          },
+          {
+            name: "twitter:card",
+            content: "summary_large_image",
+          },
+          {
+            name: "twitter:site",
+            content: "@Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:creator",
+            content: "@Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:title",
+            content: "Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:description",
+            content: "Ekhon TV is an online news portal of Bangladesh.",
+          },
+          {
+            name: "twitter:image",
+            content: "https://ekhon.tv/media/common/favicon2.png",
+          },
+          {
+            name: "twitter:image:alt",
+            content: "Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:domain",
+            content: "https://ekhon.tv/",
+          },
+          {
+            name: "twitter:app:name:iphone",
+            content: "Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:app:id:iphone",
+            content: "0",
+          },
+          {
+            name: "twitter:app:url:iphone",
+            content: "https://ekhon.tv/",
+          },
+          {
+            name: "twitter:app:name:ipad",
+            content: "Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:app:id:ipad",
+            content: "0",
+          },
+          {
+            name: "twitter:app:url:ipad",
+            content: "https://ekhon.tv/",
+          },
+          {
+            name: "twitter:app:name:googleplay",
+            content: "Ekhon TV :: এখন টিভি",
+          },
+          {
+            name: "twitter:app:id:googleplay",
+            content: "0",
+          },
+          {
+            name: "twitter:app:url:googleplay",
+            content: "https://ekhon.tv/",
+          },
+          {
+            name: "twitter:app:country",
+            content: "BD",
+          },
+          {
+            name: "twitter:app:country",
+            content: "US",
+          },
+          {
+            name: "twitter:app:country",
+            content: "IN",
+          },
+          {
+            name: "twitter:app:country",
+            content: "CA",
+          },
+          {
+            name: "twitter:app:country",
+            content: "AU",
+          },
+          {
+            name: "twitter:app:country",
+            content: "GB",
+          },
+          {
+            name: "twitter:app:country",
+            content: "NZ",
+          },
+          {
+            name: "twitter:app:country",
+            content: "IE",
+          },
+          {
+            name: "twitter:app:country",
+            content: "SG",
+          },
+        ]}
         robotsProps={{
           nosnippet: true,
           notranslate: true,
