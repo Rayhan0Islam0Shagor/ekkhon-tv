@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+// import Image from "next/image";
+// import { useState } from "react";
 
 export default function Home({ data }) {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   return (
     <>
