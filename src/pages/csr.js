@@ -47,7 +47,7 @@ export default function CSR() {
         </Link>
       </div>
 
-      <main className="container grid h-full grid-cols-6 gap-3 lg:gap-6 mx-auto lg:grid-cols-3">
+      <main className="container px-4 lg:px-0 grid h-full grid-cols-6 gap-3 lg:gap-6 mx-auto lg:grid-cols-3">
         {data.map(
           (
             {
