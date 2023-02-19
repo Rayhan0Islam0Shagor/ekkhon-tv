@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
-import styles from "@/styles/NewsDetails.module.css";
+import styles from "../../../../styles/newsDetails.module.css";
 import Link from "next/link";
 
 const NewsDetails = ({ news }) => {
