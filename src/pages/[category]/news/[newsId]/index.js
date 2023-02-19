@@ -5,6 +5,7 @@ import styles from "../../../../styles/newsDetails.module.css";
 import Link from "next/link";
 
 const NewsDetails = ({ news }) => {
+  console.log("🚀 ~ file: index.js:8 ~ NewsDetails ~ news", news);
   const { contentDetails, writerInfo } = news;
   const [loading, setLoading] = useState(true);
 
@@ -42,13 +43,13 @@ const NewsDetails = ({ news }) => {
             {contentDetails[0].ContentHeading}
           </h1>
 
-          <div className="relative flex items-center justify-center w-full">
+          <div className="relative overflow-hidden rounded-md flex items-center justify-center w-full">
             <Image
               height={750}
               width={1440}
               alt={contentDetails[0].ImageBgPathCaption}
               src={`https://backoffice.ekhon.tv/media/imgAll/${contentDetails[0].ImageBgPath}`}
-              className={`w-full h-60 sm:h-96 dark:bg-gray-500 transition-opacity duration-200 ${
+              className={`w-full h-72 sm:h-96  object-cover rounded-md transition-opacity duration-200 ${
                 loading ? "opacity-0" : "opacity-100"
               }`}
               onLoad={() => {
@@ -96,10 +97,15 @@ export default NewsDetails;
 export async function getServerSideProps(ctx) {
   const { category, newsId } = ctx.query;
   // fetch news details
-  const res = await fetch(
+  const response = await fetch(
     `https://backoffice.ekhon.tv/api/content-details/${category}/${newsId}`
   );
-  const news = await res.json();
+  const news = await response.json();
+
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
 
   return {
     props: {
