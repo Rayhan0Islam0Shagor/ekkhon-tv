@@ -3,9 +3,9 @@ import Image from "next/image";
 import Head from "next/head";
 import styles from "../../../../styles/newsDetails.module.css";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const NewsDetails = ({ news }) => {
-  console.log("🚀 ~ file: index.js:8 ~ NewsDetails ~ news", news);
   const { contentDetails, writerInfo } = news;
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,12 @@ const NewsDetails = ({ news }) => {
         <meta name="google" content="notranslate" />
       </Head>
 
-      <div className="p-5 pt-0 mx-auto sm:p-5 md:p-10 md:pt-0 text-gray-900">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="p-5 pt-0 mx-auto sm:p-5 md:p-10 md:pt-0 text-gray-900"
+      >
         <div className="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
           <div className="flex items-center justify-start w-full py-5">
             <Link
@@ -87,7 +92,7 @@ const NewsDetails = ({ news }) => {
             ></div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

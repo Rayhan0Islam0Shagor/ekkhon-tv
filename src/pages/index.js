@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 // import Image from "next/image";
 // import { useState } from "react";
 
@@ -50,7 +51,10 @@ export default function Home({ data }) {
               },
               index
             ) => (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.3, duration: 0.5 }}
                 key={index}
                 className="relative flex items-end justify-start w-full text-left bg-right-top bg-cover bg-no-repeat h-96 dark:bg-gray-500"
                 style={{
@@ -98,7 +102,7 @@ export default function Home({ data }) {
                     {ContentBrief.substring(0, 100) + "..."}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             )
           )}
         </div>
