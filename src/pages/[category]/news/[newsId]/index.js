@@ -35,7 +35,7 @@ const NewsDetails = ({ news }) => {
         className="py-5 pt-0 mx-auto sm:p-5 md:p-10 md:pt-0 text-gray-900"
       >
         <div className="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
-          <div className="flex items-center justify-start w-full py-5">
+          <div className="flex px-5 items-center justify-start w-full py-5">
             <Link
               href="/"
               className="px-4 py-2 font-bold uppercase transition-all duration-500 border border-indigo-400 hover:bg-indigo-400"
@@ -44,11 +44,11 @@ const NewsDetails = ({ news }) => {
             </Link>
           </div>
 
-          <h1 className="block text-xl pb-4 font-semibold sm:text-3xl">
+          <h1 className="block px-5 text-xl pb-4 font-semibold sm:text-3xl">
             {contentDetails[0].ContentHeading}
           </h1>
 
-          <div className="relative overflow-hidden rounded-md flex items-center justify-center w-full">
+          <div className="relative px-2 overflow-hidden rounded-md flex items-center justify-center w-full">
             <Image
               height={750}
               width={1440}
