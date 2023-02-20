@@ -32,7 +32,7 @@ const NewsDetails = ({ news }) => {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="p-5 pt-0 mx-auto sm:p-5 md:p-10 md:pt-0 text-gray-900"
+        className="py-5 pt-0 mx-auto sm:p-5 md:p-10 md:pt-0 text-gray-900"
       >
         <div className="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
           <div className="flex items-center justify-start w-full py-5">
