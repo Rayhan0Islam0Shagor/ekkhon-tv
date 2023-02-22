@@ -1,11 +1,11 @@
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
-// import Image from "next/image";
-// import { useState } from "react";
+import Image from "next/image";
 
 export default function Home({ data }) {
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   return (
     <>
@@ -57,11 +57,33 @@ export default function Home({ data }) {
                 transition={{ delay: index * 0.3, duration: 0.5 }}
                 key={index}
                 className="relative flex items-end justify-start w-full text-left bg-right-top bg-no-repeat bg-cover h-96 dark:bg-gray-500"
-                style={{
-                  backgroundImage: `url(https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath})`,
-                }}
+                // style={{
+                //   backgroundImage: `url(https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath})`,
+                // }}
               >
-                <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b via-transparent from-gray-900 to-gray-900" />
+                <Image
+                  height={630}
+                  width={1200}
+                  src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
+                  alt={ContentHeading}
+                  className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-200 ${
+                    loading ? "opacity-0" : "opacity-100"
+                  }`}
+                  onLoad={() => {
+                    setLoading(false);
+                  }}
+                  priority
+                  placeholder="blur"
+                  blurDataURL={`https://backoffice.ekhon.tv/media/imgAll/${ImageSmPath}`}
+                />
+
+                {loading && (
+                  <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse" />
+                )}
+
+                <div className="absolute inset-0 bg-gradient-to-b via-transparent from-transparent to-gray-900" />
+                <div className="absolute inset-0 bg-gradient-to-b via-transparent from-gray-600 to-gray-900" />
+                <div className="absolute inset-0 bg-gradient-to-b via-transparent from-transparent to-gray-900" />
                 <div className="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
                   <span className="px-3 py-2 text-xs font-semibold tracking-wider uppercase  text-gray-900 bg-[#FCB415]">
                     {CategoryName}
@@ -99,7 +121,7 @@ export default function Home({ data }) {
                     </Link>
                   </h2>
                   <p className="px-3 pb-1 text-sm font-medium text-gray-300">
-                    {ContentBrief.substring(0, 100) + "..."}
+                    {ContentBrief.substring(0, 70) + "..."}
                   </p>
                 </div>
               </motion.div>
