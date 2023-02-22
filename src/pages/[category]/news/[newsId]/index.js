@@ -32,10 +32,10 @@ const NewsDetails = ({ news }) => {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="py-5 pt-0 mx-auto sm:p-5 md:p-10 md:pt-0 text-gray-900"
+        className="py-5 pt-0 mx-auto text-gray-900 sm:p-5 md:p-10 md:pt-0"
       >
         <div className="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
-          <div className="flex px-5 items-center justify-start w-full py-5">
+          <div className="flex items-center justify-start w-full px-5 py-5">
             <Link
               href="/"
               className="px-4 py-2 font-bold uppercase transition-all duration-500 border border-indigo-400 hover:bg-indigo-400"
@@ -44,11 +44,11 @@ const NewsDetails = ({ news }) => {
             </Link>
           </div>
 
-          <h1 className="block px-5 text-xl pb-4 font-semibold sm:text-3xl">
+          <h1 className="block px-5 pb-4 text-xl font-semibold sm:text-3xl">
             {contentDetails[0].ContentHeading}
           </h1>
 
-          <div className="relative px-2 overflow-hidden rounded-md flex items-center justify-center w-full">
+          <div className="relative flex items-center justify-center w-full px-2 overflow-hidden rounded-md">
             <Image
               height={750}
               width={1440}
@@ -72,7 +72,7 @@ const NewsDetails = ({ news }) => {
             )}
           </div>
 
-          <div className="relative p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10 sm:mx-12 lg:rounded-md bg-gray-100">
+          <div className="relative p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 bg-gray-100 lg:max-w-4xl sm:px-10 sm:mx-12 lg:rounded-md">
             <div className="space-y-2">
               <span className="inline-block text-2xl font-semibold sm:text-xl">
                 {contentDetails[0].ImageBgPathCaption}
@@ -107,10 +107,10 @@ export async function getServerSideProps(ctx) {
   );
   const news = await response.json();
 
-  ctx.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
+  // ctx.res.setHeader(
+  //   "Cache-Control",
+  //   "public, s-maxage=10, stale-while-revalidate=59"
+  // );
 
   return {
     props: {

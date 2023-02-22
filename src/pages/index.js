@@ -56,7 +56,7 @@ export default function Home({ data }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.3, duration: 0.5 }}
                 key={index}
-                className="relative flex items-end justify-start w-full text-left bg-right-top bg-cover bg-no-repeat h-96 dark:bg-gray-500"
+                className="relative flex items-end justify-start w-full text-left bg-right-top bg-no-repeat bg-cover h-96 dark:bg-gray-500"
                 style={{
                   backgroundImage: `url(https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath})`,
                 }}
@@ -98,7 +98,7 @@ export default function Home({ data }) {
                       {ContentHeading}
                     </Link>
                   </h2>
-                  <p className="px-3 pb-1 font-medium text-sm text-gray-300">
+                  <p className="px-3 pb-1 text-sm font-medium text-gray-300">
                     {ContentBrief.substring(0, 100) + "..."}
                   </p>
                 </div>
@@ -117,10 +117,10 @@ export async function getServerSideProps({ req, res }) {
   );
   const data = await response.json();
 
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
+  // res.setHeader(
+  //   "Cache-Control",
+  //   "public, s-maxage=10, stale-while-revalidate=59"
+  // );
 
   return {
     props: {
