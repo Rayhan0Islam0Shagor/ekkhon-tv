@@ -117,10 +117,10 @@ export async function getServerSideProps({ req, res }) {
   );
   const data = await response.json();
 
-  // res.setHeader(
-  //   "Cache-Control",
-  //   "public, s-maxage=10, stale-while-revalidate=59"
-  // );
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
 
   return {
     props: {

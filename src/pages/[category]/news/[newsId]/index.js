@@ -107,10 +107,10 @@ export async function getServerSideProps(ctx) {
   );
   const news = await response.json();
 
-  // ctx.res.setHeader(
-  //   "Cache-Control",
-  //   "public, s-maxage=10, stale-while-revalidate=59"
-  // );
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
 
   return {
     props: {
