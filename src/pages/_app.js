@@ -16,36 +16,43 @@ export default function App({ Component, pageProps }) {
         description="Ekhon TV is an online news portal of Bangladesh. It was established in 2017 with the commitment to publish objective and information-based news."
         keywords="এখন টিভি,অনলাইন পত্রিকা, পত্রিকা, বাংলাদেশ পত্রিকা, আজকের পত্রিকা, দেশে এখন, বাজার, কাচা বাজার, মুদ্রা বাজার, শেয়ার বাজার, আন্তর্জাতিক বাজার, ক্রিপ্টো, বিদেশে এখন, ক্রিকেট, ফুটবল, এখন মাঠে, এখন আনন্দ, সিনেমা, নাটক, তথ্য প্রযুক্তি, নাগরিক সাংবাদিকতা, পাঠকের কথা, চলতি হাওয়া, পরিবেশ, আবহাওয়া, উদ্যোক্তা"
         canonical="https://ekhon.tv/"
+        themeColor="#fff"
         author="Ekhon TV :: এখন টিভি"
+        favicon="https://ekhon.tv/media/common/favicon2.png"
         openGraph={{
+          type: "article",
           url: "https://ekhon.tv/",
           title: "Ekhon TV :: এখন টিভি",
           description:
             "Ekhon TV is an online news portal of Bangladesh. It was established in 2017 with the commitment to publish objective and information-based news.",
           images: [
             {
-              url: "https://ekhon.tv/media/common/favicon2.png",
+              url: "https://backoffice.ekhon.tv/media/common/logo-fb.png",
               width: 800,
-              height: 600,
+              height: 400,
               alt: "Og Image Alt",
               type: "image/png",
             },
             {
-              url: "https://ekhon.tv/media/common/favicon2.png",
-              width: 900,
-              height: 800,
+              url: "https://backoffice.ekhon.tv/media/common/logo-fb.png",
+              width: 1200,
+              height: 630,
               alt: "Og Image Alt Second",
               type: "image/png",
             },
-            { url: "https://ekhon.tv/media/common/favicon2.png" },
-            { url: "https://ekhon.tv/media/common/favicon2.png" },
+            { url: "https://backoffice.ekhon.tv/media/common/logo-fb.png" },
+            { url: "https://backoffice.ekhon.tv/media/common/logo-fb.png" },
           ],
           siteName: "https://ekhon.tv/",
         }}
         twitter={{
           handle: "@Ekhon TV :: এখন টিভি",
+          title: "Ekhon TV :: এখন টিভি",
+          description:
+            "Ekhon TV is an online news portal of Bangladesh. It was established in 2017 with the commitment to publish objective and information-based news.",
           site: "https://ekhon.tv/",
-          cardType: "summary",
+          image: "https://backoffice.ekhon.tv/media/common/logo-fb.png",
+          cardType: "summary_large_image",
         }}
         additionalMetaTags={[
           {
