@@ -220,7 +220,8 @@ export default function App({ Component, pageProps }) {
         showOnShallow={true}
       />
 
-      <AnimatePresence exitBeforeEnter>
+      {/* <AnimatePresence exitBeforeEnter> */}
+      <AnimatePresence mode="wait">
         <motion.div
           key={router.route}
           initial="initialState"

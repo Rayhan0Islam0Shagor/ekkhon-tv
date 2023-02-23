@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="bn">
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msvalidate.01" content="msvalidate.01=0" />
         <meta name="yandex-verification" content="yandex-verification=0" />
         <meta name="p:domain_verify" content="p:domain_verify=0" />
@@ -28,6 +27,7 @@ export default function Document() {
         <meta name="twitter:creator" content="@Ekhon TV :: এখন টিভি" />
         <meta name="twitter:title" content="Ekhon TV :: এখন টিভি" />
 
+        {/* this tags for pwa */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon.png" />
         <meta name="theme-color" content="#fff" />

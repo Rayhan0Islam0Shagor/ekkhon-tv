@@ -3,6 +3,7 @@ const siteUrl = "https://ekkhon-tv.vercel.app";
 module.exports = {
   siteUrl,
   generateRobotsTxt: true,
+  changefreq: "daily",
   robotsTxtOptions: {
     // policies: [
     //   {
@@ -17,6 +18,7 @@ module.exports = {
     additionalSitemaps: [
       `${siteUrl}/sitemap.xml`,
       `${siteUrl}/server-sitemap.xml`,
+      `${siteUrl}/server-sitemap-index.xml`,
     ],
   },
   exclude: ["/csr"],
