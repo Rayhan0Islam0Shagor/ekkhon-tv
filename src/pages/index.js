@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import axios from "axios";
 
-export default function Home({ data }) {
+export default function Home({ data = [] }) {
   const [loading, setLoading] = useState(true);
 
   return (
@@ -134,10 +134,9 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  const response = await axios.get(
+  const { data } = await axios.get(
     "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json"
   );
-  const data = await response.json();
 
   res.setHeader(
     "Cache-Control",
