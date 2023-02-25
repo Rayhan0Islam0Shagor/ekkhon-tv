@@ -1,21 +1,56 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
-import { motion } from "framer-motion";
+import CryptoJS from "crypto-js";
+import Loading from "@/components/Loading";
+
+const CsrNewsCard = dynamic(() => import("@/components/CsrNewsCard"), {
+  ssr: false,
+});
 
 const fetcher = (url) => axios.get(url).then((res) => res.data.data);
 
 export default function CSR() {
-  // const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [enCryptedData, setEnCryptedData] = useState([]);
 
   const { data, isLoading } = useSWR(
     "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json",
     fetcher
   );
+
+  const SECRET_KEY =
+    "!S+;3o &rVkk/H=Jy$-oN@`C?Qd|2_0;H5! ^q] $+TD)y`*r_p=*`^lB8x,tBR>";
+
+  const encryptData = (name, data) => {
+    const encrypted = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      SECRET_KEY
+    ).toString();
+    localStorage.setItem(name, encrypted);
+  };
+
+  const decryptData = (name) => {
+    const encrypted = localStorage.getItem(name);
+    const decrypted = CryptoJS.AES.decrypt(encrypted, SECRET_KEY).toString(
+      CryptoJS.enc.Utf8
+    );
+
+    return JSON.parse(decrypted);
+  };
+
+  useEffect(() => {
+    if (data) {
+      encryptData("data", data);
+    }
+
+    if (localStorage.getItem("data")) {
+      const data = decryptData("data");
+      setEnCryptedData(data);
+    }
+  }, []);
 
   // useEffect(() => {
   //   try {
@@ -60,23 +95,12 @@ export default function CSR() {
         {isLoading && (
           <>
             {new Array(6).fill("loading...").map((_, index) => (
-              <div
-                className="flex items-center justify-center w-full h-full col-span-6 md:col-span-3 lg:col-span-1"
-                key={index}
-              >
-                <div className="flex flex-col items-start justify-start w-full h-full overflow-hidden border rounded-lg shadow-lg">
-                  <div className="w-full h-56 mb-2 bg-gray-400 animate-pulse" />
-                  <h3 className="w-full h-4 mb-2 bg-gray-500 animate-pulse rounded-xl " />
-                  <p className="w-3/4 h-3 mb-1 bg-gray-500 animate-pulse rounded-xl " />
-                  <p className="w-2/4 h-3 mb-1 bg-gray-500 animate-pulse rounded-xl " />
-                  <p className="w-1/4 h-3 mb-1 bg-gray-500 animate-pulse rounded-xl " />
-                </div>
-              </div>
+              <Loading key={index} />
             ))}
           </>
         )}
 
-        {data?.map(
+        {enCryptedData?.map(
           (
             {
               CategoryID,
@@ -95,62 +119,23 @@ export default function CSR() {
             },
             index
           ) => (
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.3, duration: 0.5 }}
-              className="flex items-center justify-center w-full h-full col-span-6 md:col-span-3 lg:col-span-1"
-              key={Slug + "_" + created_at}
-            >
-              <div className="flex flex-col items-start justify-start w-full h-full overflow-hidden border rounded-lg shadow-lg">
-                <div className="relative flex items-center justify-center w-full border-b">
-                  <Image
-                    height={630}
-                    width={1200}
-                    alt={ContentHeading}
-                    src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
-                    className={`w-full h-auto transition-opacity duration-200 ${
-                      loading ? "opacity-0" : "opacity-100"
-                    }`}
-                    onLoad={() => {
-                      setLoading(false);
-                    }}
-                    priority
-                    placeholder="blur"
-                    blurDataURL={`https://backoffice.ekhon.tv/media/imgAll/${ImageSmPath}`}
-                  />
-                  {loading && (
-                    <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse" />
-                  )}
-                </div>
-
-                <div className="flex flex-col flex-1">
-                  <div className="flex-1 w-full p-4 border-b">
-                    <h1 className="pb-2 text-xl font-semibold">
-                      {ContentHeading}
-                    </h1>
-                    <p className="py-1 text-sm">{ContentBrief}</p>
-                  </div>
-
-                  <div className="flex flex-row-reverse items-center justify-between w-full p-4">
-                    <span>
-                      {new Date(created_at).toLocaleDateString("bn-BD", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      }) + " "}
-                    </span>
-
-                    <button
-                      type="button"
-                      className="px-4 py-2 text-white bg-gray-800 rounded-lg hover:bg-gray-700 active:bg-gray-600"
-                    >
-                      {CategoryName}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <CsrNewsCard
+              key={index}
+              CategoryID={CategoryID}
+              CategoryName={CategoryName}
+              ContentBrief={ContentBrief}
+              ContentHeading={ContentHeading}
+              ImageBgPath={ImageBgPath}
+              ImageSmPath={ImageSmPath}
+              ImageThumbPath={ImageThumbPath}
+              ShowVideo={ShowVideo}
+              Slug={Slug}
+              URLAlies={URLAlies}
+              VideoID={VideoID}
+              created_at={created_at}
+              VideoType={VideoType}
+              index={index}
+            />
           )
         )}
       </main>

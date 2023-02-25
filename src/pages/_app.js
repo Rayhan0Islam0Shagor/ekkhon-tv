@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/router";
 import NextNProgress from "nextjs-progressbar";
 import { NextSeo } from "next-seo";

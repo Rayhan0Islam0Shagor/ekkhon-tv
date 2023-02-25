@@ -1,13 +1,18 @@
-import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import axios from "axios";
+import dynamic from "next/dynamic";
+// import FeaturedNews from "@/components/FeaturedNews";
 
-export default function Home({ data = [] }) {
-  const [loading, setLoading] = useState(true);
+const NewsCard = dynamic(() => import("@/components/NewsCard"), {
+  ssr: true,
+});
+const FeaturedNews = dynamic(() => import("@/components/FeaturedNews"), {
+  ssr: true,
+});
 
+export default function Home({ data = [], latest = [], categorySeven = [] }) {
   return (
     <>
       <Head>
@@ -29,25 +34,69 @@ export default function Home({ data = [] }) {
         </Link>
       </div>
 
-      <main className="max-w-screen-xl p-5 mx-auto ">
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
-          {data?.map(
+      <main className="max-w-screen-xl px-4 lg:px-0 mx-auto ">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 sm:grid-cols-2">
+          {data
+            ?.slice(0, 3)
+            ?.map(
+              (
+                {
+                  CategoryID,
+                  CategoryName,
+                  ContentBrief,
+                  ContentHeading,
+                  ImageBgPath,
+                  ImageSmPath,
+                  ImageThumbPath,
+                  ShowVideo,
+                  Slug,
+                  URLAlies,
+                  VideoID,
+                  created_at,
+                  VideoType,
+                  ContentID,
+                },
+                index
+              ) => (
+                <NewsCard
+                  key={index}
+                  index={index}
+                  CategoryID={CategoryID}
+                  CategoryName={CategoryName}
+                  ContentBrief={ContentBrief}
+                  ContentHeading={ContentHeading}
+                  ImageBgPath={ImageBgPath}
+                  ImageSmPath={ImageSmPath}
+                  ImageThumbPath={ImageThumbPath}
+                  ShowVideo={ShowVideo}
+                  Slug={Slug}
+                  URLAlies={URLAlies}
+                  VideoID={VideoID}
+                  created_at={created_at}
+                  VideoType={VideoType}
+                  ContentID={ContentID}
+                />
+              )
+            )}
+        </div>
+
+        <div className="my-10">
+          <FeaturedNews data={data?.slice(3)} />
+        </div>
+
+        <div className="grid my-6 grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 h-full">
+          {latest?.map(
             (
               {
                 CategoryID,
-                CategoryName,
-                ContentBrief,
+                ContentID,
                 ContentHeading,
-                ImageBgPath,
                 ImageSmPath,
                 ImageThumbPath,
                 ShowVideo,
                 Slug,
                 URLAlies,
-                VideoID,
-                created_at,
-                VideoType,
-                ContentID,
+                imgUrl = "https://backoffice.ekhon.tv/media/imgAll/",
               },
               index
             ) => (
@@ -56,74 +105,30 @@ export default function Home({ data = [] }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.3, duration: 0.5 }}
                 key={index}
-                className="relative flex items-end justify-start w-full text-left bg-right-top bg-no-repeat bg-cover h-96 dark:bg-gray-500"
-                // style={{
-                //   backgroundImage: `url(https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath})`,
-                // }}
+                className="col-span-1 rounded-b rounded-t lg:rounded-t-none lg:rounded-l lg:rounded-b-none lg:rounded-r  h-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400"
               >
-                <Image
-                  height={630}
-                  width={1200}
-                  src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
-                  alt={ContentHeading}
-                  className={`w-full h-full absolute inset-0 object-cover transition-opacity duration-200 ${
-                    loading ? "opacity-0" : "opacity-100"
-                  }`}
-                  onLoad={() => {
-                    setLoading(false);
-                  }}
-                  priority
-                  placeholder="blur"
-                  blurDataURL={`https://backoffice.ekhon.tv/media/imgAll/${ImageSmPath}`}
-                />
-
-                {loading && (
-                  <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse" />
-                )}
-
-                <div className="absolute inset-0 bg-gradient-to-b via-transparent from-transparent to-gray-900" />
-                <div className="absolute inset-0 bg-gradient-to-b via-transparent from-gray-600 to-gray-900" />
-                <div className="absolute inset-0 bg-gradient-to-b via-transparent from-transparent to-gray-900" />
-                <div className="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
-                  <span className="px-3 py-2 text-xs font-semibold tracking-wider uppercase  text-gray-900 bg-[#FCB415]">
-                    {CategoryName}
-                  </span>
-                  <div className="flex flex-col justify-start text-center dark:text-gray-100">
-                    <span className="text-3xl font-semibold leading-none tracking-wide">
-                      {
-                        new Date(created_at)
-                          .toLocaleDateString("bn-BD", {
-                            month: "long",
-                            day: "numeric",
-                          })
-                          .split(" ")[0]
-                      }
-                    </span>
-                    <span className="leading-none uppercase">
-                      {
-                        new Date(created_at)
-                          .toLocaleDateString("bn-BD", {
-                            month: "long",
-                            day: "numeric",
-                          })
-                          .split(" ")[1]
-                      }
-                    </span>
+                <Link
+                  href={`/${Slug}/news/${ContentID}`}
+                  className="w-full h-full lg:max-w-full lg:flex"
+                >
+                  <div
+                    className="h-48 lg:w-48 flex-none bg-cover  text-center overflow-hidden"
+                    style={{
+                      backgroundImage: `url(${imgUrl}${ImageSmPath})`,
+                    }}
+                    title="Mountain"
+                  ></div>
+                  <div className=" bg-white p-4 flex flex-col justify-between leading-normal">
+                    <div className="mb-8">
+                      <p className="text-sm text-gray-600 flex items-center mb-3">
+                        {Slug}
+                      </p>
+                      <div className="text-gray-900 font-bold text-lg">
+                        {ContentHeading}
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="z-10">
-                  <h2 className="px-3 pb-2">
-                    <Link
-                      href={`/${Slug}/news/${ContentID}`}
-                      className="font-semibold  text-md hover:underline text-[#FCB415]"
-                    >
-                      {ContentHeading}
-                    </Link>
-                  </h2>
-                  <p className="px-3 pb-1 text-sm font-medium text-gray-300">
-                    {ContentBrief.substring(0, 70) + "..."}
-                  </p>
-                </div>
+                </Link>
               </motion.div>
             )
           )}
@@ -134,9 +139,26 @@ export default function Home({ data = [] }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  const { data } = await axios.get(
-    "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json"
-  );
+  // const { data } = await axios.get(
+  //   "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json"
+  // );
+
+  const [{ data: featured }, { data: latest }, { data: categorySeven }] =
+    await Promise.all([
+      axios.get(
+        `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
+      ),
+      axios.get(
+        `https://backoffice.ekhon.tv/api/json/file/generateLatest.json`
+      ),
+      axios.get(
+        `https://backoffice.ekhon.tv/api/json/file/generateCategory7.json`
+      ),
+    ]);
+  // const [latest, categorySeven] = await Promise.all([
+  //   latestNewsRes.json(),
+  //   categorySevenRes.json(),
+  // ]);
 
   res.setHeader(
     "Cache-Control",
@@ -145,7 +167,9 @@ export async function getServerSideProps({ req, res }) {
 
   return {
     props: {
-      data: data.data,
+      data: featured.data,
+      latest: latest.data,
+      categorySeven: categorySeven.data,
     },
   };
 }
