@@ -116,7 +116,7 @@ export default function Home({ data = [], latest = [], categorySeven = [] }) {
                     style={{
                       backgroundImage: `url(${imgUrl}${ImageSmPath})`,
                     }}
-                    title="Mountain"
+                    title={Slug}
                   ></div>
                   <div className=" bg-white p-4 flex flex-col justify-between leading-normal">
                     <div className="mb-8">
