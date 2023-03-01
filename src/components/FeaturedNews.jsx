@@ -61,7 +61,7 @@ const FeaturedNews = ({ data = [] }) => {
           },
           index
         ) => (
-          <div className="px-2 overflow-hidden  w-full">
+          <div className="px-2 overflow-hidden w-full" key={Slug + index}>
             <img
               src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
               alt={ContentHeading}
