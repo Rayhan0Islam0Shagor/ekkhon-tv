@@ -1,23 +1,21 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import ColorThief from "colorthief";
 
 const CsrNewsCard = ({
-  CategoryID,
   CategoryName,
   ContentBrief,
   ContentHeading,
   ImageBgPath,
   ImageSmPath,
-  ImageThumbPath,
-  ShowVideo,
   Slug,
-  URLAlies,
-  VideoID,
   created_at,
-  VideoType,
   index,
 }) => {
+  const imgRef = useRef(null);
+  const [bgColor, setBgColor] = useState("#FCB415");
+  const [color, setColor] = useState("#fff");
   const [loading, setLoading] = useState(true);
 
   return (
@@ -31,22 +29,40 @@ const CsrNewsCard = ({
       <div className="flex flex-col items-start justify-start w-full h-full overflow-hidden border rounded-lg shadow-lg">
         <div className="relative flex items-center justify-center w-full border-b">
           <Image
-            height={630}
-            width={1200}
-            alt={ContentHeading}
+            crossOrigin="anonymous"
+            ref={imgRef}
             src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
             className={`w-full h-auto transition-opacity duration-200 ${
               loading ? "opacity-0" : "opacity-100"
             }`}
+            alt={ContentHeading}
+            height={630}
+            width={1200}
             onLoad={() => {
               setLoading(false);
+
+              const colorThief = new ColorThief();
+              const color = colorThief.getColor(imgRef.current);
+              const rgb = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+              setBgColor(rgb);
+              const textColor =
+                color[0] * 0.299 + color[1] * 0.587 + color[2] * 0.114 > 186
+                  ? "#1f2937d9"
+                  : "#fff";
+              setColor(textColor);
             }}
             priority
             placeholder="blur"
             blurDataURL={`https://backoffice.ekhon.tv/media/imgAll/${ImageSmPath}`}
           />
           {loading && (
-            <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse" />
+            <div
+              className="absolute top-0 left-0 w-full h-full animate-pulse"
+              style={{
+                backgroundColor: bgColor,
+                opacity: 0.5,
+              }}
+            />
           )}
         </div>
 
@@ -67,7 +83,11 @@ const CsrNewsCard = ({
 
             <button
               type="button"
-              className="px-4 py-2 text-white bg-gray-800 rounded-lg hover:bg-gray-700 active:bg-gray-600"
+              className="px-4 py-2 font-medium rounded-lg hover:bg-gray-700 active:bg-gray-600"
+              style={{
+                backgroundColor: bgColor,
+                color: color,
+              }}
             >
               {CategoryName}
             </button>

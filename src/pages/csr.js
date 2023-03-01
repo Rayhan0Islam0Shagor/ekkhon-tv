@@ -1,11 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
-import CryptoJS from "crypto-js";
 import Loading from "@/components/Loading";
+// import { useEffect, useState } from "react";
+// import CryptoJS from "crypto-js";
 
 const CsrNewsCard = dynamic(() => import("@/components/CsrNewsCard"), {
   ssr: false,
@@ -14,43 +14,43 @@ const CsrNewsCard = dynamic(() => import("@/components/CsrNewsCard"), {
 const fetcher = (url) => axios.get(url).then((res) => res.data.data);
 
 export default function CSR() {
-  const [enCryptedData, setEnCryptedData] = useState([]);
+  // const [enCryptedData, setEnCryptedData] = useState([]);
 
   const { data, isLoading } = useSWR(
     "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json",
     fetcher
   );
 
-  const SECRET_KEY =
-    "!S+;3o &rVkk/H=Jy$-oN@`C?Qd|2_0;H5! ^q] $+TD)y`*r_p=*`^lB8x,tBR>";
+  // const SECRET_KEY =
+  //   "!S+;3o &rVkk/H=Jy$-oN@`C?Qd|2_0;H5! ^q] $+TD)y`*r_p=*`^lB8x,tBR>";
 
-  const encryptData = (name, data) => {
-    const encrypted = CryptoJS.AES.encrypt(
-      JSON.stringify(data),
-      SECRET_KEY
-    ).toString();
-    localStorage.setItem(name, encrypted);
-  };
+  // const encryptData = (name, data) => {
+  //   const encrypted = CryptoJS.AES.encrypt(
+  //     JSON.stringify(data),
+  //     SECRET_KEY
+  //   ).toString();
+  //   localStorage.setItem(name, encrypted);
+  // };
 
-  const decryptData = (name) => {
-    const encrypted = localStorage.getItem(name);
-    const decrypted = CryptoJS.AES.decrypt(encrypted, SECRET_KEY).toString(
-      CryptoJS.enc.Utf8
-    );
+  // const decryptData = (name) => {
+  //   const encrypted = localStorage.getItem(name);
+  //   const decrypted = CryptoJS.AES.decrypt(encrypted, SECRET_KEY).toString(
+  //     CryptoJS.enc.Utf8
+  //   );
 
-    return JSON.parse(decrypted);
-  };
+  //   return JSON.parse(decrypted);
+  // };
 
-  useEffect(() => {
-    if (data) {
-      encryptData("data", data);
-    }
+  // useEffect(() => {
+  //   if (data) {
+  //     encryptData("data", data);
+  //   }
 
-    if (localStorage.getItem("data")) {
-      const data = decryptData("data");
-      setEnCryptedData(data);
-    }
-  }, []);
+  //   if (localStorage.getItem("data")) {
+  //     const data = decryptData("data");
+  //     setEnCryptedData(data);
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   try {
@@ -100,7 +100,7 @@ export default function CSR() {
           </>
         )}
 
-        {enCryptedData?.map(
+        {data?.map(
           (
             {
               CategoryID,

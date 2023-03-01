@@ -1,9 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import axios from "axios";
 import dynamic from "next/dynamic";
-// import FeaturedNews from "@/components/FeaturedNews";
 
 const NewsCard = dynamic(() => import("@/components/NewsCard"), {
   ssr: true,
@@ -11,8 +9,11 @@ const NewsCard = dynamic(() => import("@/components/NewsCard"), {
 const FeaturedNews = dynamic(() => import("@/components/FeaturedNews"), {
   ssr: true,
 });
+const LatestNews = dynamic(() => import("@/components/LatestNews"), {
+  ssr: true,
+});
 
-export default function Home({ data = [], latest = [], categorySeven = [] }) {
+export default function Home({ data = [] }) {
   return (
     <>
       <Head>
@@ -34,10 +35,16 @@ export default function Home({ data = [], latest = [], categorySeven = [] }) {
         </Link>
       </div>
 
-      <main className="max-w-screen-xl px-4 lg:px-0 mx-auto ">
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 sm:grid-cols-2">
+      <main className="max-w-screen-xl px-4 lg:px-0 mx-auto">
+        <LatestNews data={data?.slice(0, 5)} />
+
+        <div className="mb-10">
+          <FeaturedNews data={data} />
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 sm:grid-cols-2 mb-10">
           {data
-            ?.slice(0, 3)
+            ?.slice(5, 8)
             ?.map(
               (
                 {
@@ -79,86 +86,34 @@ export default function Home({ data = [], latest = [], categorySeven = [] }) {
               )
             )}
         </div>
-
-        <div className="my-10">
-          <FeaturedNews data={data?.slice(3)} />
-        </div>
-
-        <div className="grid my-6 grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 h-full">
-          {latest?.map(
-            (
-              {
-                CategoryID,
-                ContentID,
-                ContentHeading,
-                ImageSmPath,
-                ImageThumbPath,
-                ShowVideo,
-                Slug,
-                URLAlies,
-                imgUrl = "https://backoffice.ekhon.tv/media/imgAll/",
-              },
-              index
-            ) => (
-              <motion.div
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.3, duration: 0.5 }}
-                key={index}
-                className="col-span-1 rounded-b rounded-t lg:rounded-t-none lg:rounded-l lg:rounded-b-none lg:rounded-r  h-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400"
-              >
-                <Link
-                  href={`/${Slug}/news/${ContentID}`}
-                  className="w-full h-full lg:max-w-full lg:flex"
-                >
-                  <div
-                    className="h-48 lg:w-48 flex-none bg-cover  text-center overflow-hidden"
-                    style={{
-                      backgroundImage: `url(${imgUrl}${ImageSmPath})`,
-                    }}
-                    title={Slug}
-                  ></div>
-                  <div className=" bg-white p-4 flex flex-col justify-between leading-normal">
-                    <div className="mb-8">
-                      <p className="text-sm text-gray-600 flex items-center mb-3">
-                        {Slug}
-                      </p>
-                      <div className="text-gray-900 font-bold text-lg">
-                        {ContentHeading}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            )
-          )}
-        </div>
       </main>
     </>
   );
 }
 
 export async function getServerSideProps({ req, res }) {
-  // const { data } = await axios.get(
-  //   "https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json"
-  // );
-
-  const [{ data: featured }, { data: latest }, { data: categorySeven }] =
-    await Promise.all([
-      axios.get(
-        `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
-      ),
-      axios.get(
-        `https://backoffice.ekhon.tv/api/json/file/generateLatest.json`
-      ),
-      axios.get(
-        `https://backoffice.ekhon.tv/api/json/file/generateCategory7.json`
-      ),
-    ]);
+  // const [{ data: featured }, { data: latest }, { data: categorySeven }] =
+  //   await Promise.all([
+  //     axios.get(
+  //       `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
+  //     ),
+  //     axios.get(
+  //       `https://backoffice.ekhon.tv/api/json/file/generateLatest.json`
+  //     ),
+  //     axios.get(
+  //       `https://backoffice.ekhon.tv/api/json/file/generateCategory7.json`
+  //     ),
+  //   ]);
   // const [latest, categorySeven] = await Promise.all([
   //   latestNewsRes.json(),
   //   categorySevenRes.json(),
   // ]);
+
+  const [{ data: featured }] = await Promise.all([
+    axios.get(
+      `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
+    ),
+  ]);
 
   res.setHeader(
     "Cache-Control",
@@ -168,8 +123,6 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       data: featured.data,
-      latest: latest.data,
-      categorySeven: categorySeven.data,
     },
   };
 }
