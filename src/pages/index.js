@@ -35,14 +35,14 @@ export default function Home({ data = [] }) {
         </Link>
       </div>
 
-      <main className="max-w-screen-xl px-4 lg:px-0 mx-auto">
+      <main className="max-w-screen-xl px-4 mx-auto lg:px-0">
         <LatestNews data={data?.slice(0, 5)} />
 
-        <div className="mb-10 mt-10 lg:mt-0">
+        <div className="mt-10 mb-10">
           <FeaturedNews data={data} />
         </div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 sm:grid-cols-2 mb-10">
+        <div className="grid grid-cols-1 gap-5 mb-10 lg:grid-cols-3 sm:grid-cols-2">
           {data
             ?.slice(5, 8)
             ?.map(
