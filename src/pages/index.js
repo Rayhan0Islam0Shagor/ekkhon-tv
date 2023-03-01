@@ -38,7 +38,7 @@ export default function Home({ data = [] }) {
       <main className="max-w-screen-xl px-4 lg:px-0 mx-auto">
         <LatestNews data={data?.slice(0, 5)} />
 
-        <div className="mb-10">
+        <div className="mb-10 mt-10 lg:mt-0">
           <FeaturedNews data={data} />
         </div>
 

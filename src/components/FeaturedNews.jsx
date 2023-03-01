@@ -61,24 +61,24 @@ const FeaturedNews = ({ data = [] }) => {
           },
           index
         ) => (
-          <div className="px-2 overflow-hidden w-full" key={Slug + index}>
+          <div className="w-full px-2 overflow-hidden" key={Slug + index}>
             <img
               src={`https://backoffice.ekhon.tv/media/imgAll/${ImageBgPath}`}
               alt={ContentHeading}
               loading="lazy"
-              className="w-full object-contain h-32 sm:h-48 md:h-64"
+              className="object-cover w-full h-32 sm:h-48 md:h-64"
             />
-            <div className="px-4  py-2">
+            <div className="px-4 py-2">
               <p className="text-[#FCB415] font-semibold text-xs mb-1 leading-none">
                 {CategoryName}
               </p>
               <Link
                 href={`/${Slug}/news/${ContentID}`}
-                className="font-bold mb-2 text-sm leading-tight sm:leading-normal"
+                className="mb-2 text-sm font-bold leading-tight sm:leading-normal"
               >
                 {ContentHeading}
               </Link>
-              <div className="text-sm font-semibold pt-2 flex items-center">
+              <div className="flex items-center pt-2 text-sm font-semibold">
                 <p className="leading-none">
                   {new Date(created_at).toLocaleDateString("bn-BD", {
                     month: "long",
