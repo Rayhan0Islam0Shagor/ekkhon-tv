@@ -33,6 +33,7 @@ yarn-error.log*
 
 /public/robots.txt
 /public/sitemap.xml
+/public/sitemap-*.xml
 
 # pwa files
 **/public/sw.js
