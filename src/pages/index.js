@@ -91,38 +91,53 @@ export default function Home({ data = [] }) {
   );
 }
 
-export async function getServerSideProps({ req, res }) {
-  // const [{ data: featured }, { data: latest }, { data: categorySeven }] =
-  //   await Promise.all([
-  //     axios.get(
-  //       `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
-  //     ),
-  //     axios.get(
-  //       `https://backoffice.ekhon.tv/api/json/file/generateLatest.json`
-  //     ),
-  //     axios.get(
-  //       `https://backoffice.ekhon.tv/api/json/file/generateCategory7.json`
-  //     ),
-  //   ]);
-  // const [latest, categorySeven] = await Promise.all([
-  //   latestNewsRes.json(),
-  //   categorySevenRes.json(),
-  // ]);
-
+export async function getStaticProps() {
   const [{ data: featured }] = await Promise.all([
     axios.get(
       `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
     ),
   ]);
 
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
   return {
     props: {
       data: featured.data,
     },
+    revalidate: 60,
   };
 }
+
+// export async function getServerSideProps({ req, res }) {
+//   // const [{ data: featured }, { data: latest }, { data: categorySeven }] =
+//   //   await Promise.all([
+//   //     axios.get(
+//   //       `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
+//   //     ),
+//   //     axios.get(
+//   //       `https://backoffice.ekhon.tv/api/json/file/generateLatest.json`
+//   //     ),
+//   //     axios.get(
+//   //       `https://backoffice.ekhon.tv/api/json/file/generateCategory7.json`
+//   //     ),
+//   //   ]);
+//   // const [latest, categorySeven] = await Promise.all([
+//   //   latestNewsRes.json(),
+//   //   categorySevenRes.json(),
+//   // ]);
+
+//   const [{ data: featured }] = await Promise.all([
+//     axios.get(
+//       `https://backoffice.ekhon.tv/api/json/file/generateSpecial1.json`
+//     ),
+//   ]);
+
+//   res.setHeader(
+//     "Cache-Control",
+//     "public, s-maxage=10, stale-while-revalidate=59"
+//   );
+
+//   return {
+//     props: {
+//       data: featured.data,
+//     },
+//   };
+// }

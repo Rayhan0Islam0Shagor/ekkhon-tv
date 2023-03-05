@@ -91,7 +91,10 @@ const LatestNews = ({ data = [] }) => {
             },
             index
           ) => (
-            <div className="relative flex items-end justify-start w-full text-left bg-center bg-cover h-72 group dark:bg-gray-500">
+            <div
+              className="relative flex items-end justify-start w-full text-left bg-center bg-cover h-72 group dark:bg-gray-500"
+              key={index}
+            >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
